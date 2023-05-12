@@ -28,6 +28,8 @@ jobs:
         distribution: 'temurin'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Execute Jar File
-      run : sudo kill -9 `sudo lsof -t -i:8080` & sudo java -jar /home/actions-runner/_work/test/test/target/cicd-0.0.1-SNAPSHOT.jar &
+    - name: Copy Jar to opt
+      run: cp /home/actions-runner/_work/test/test/target/cicd-0.0.1-SNAPSHOT.jar /opt/git
+    - name: Restart Service
+      run : systemctl restart git.service
 
